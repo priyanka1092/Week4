@@ -28,13 +28,13 @@ echo "Oops";
        }
 
        echo '<hr>';
-       echo "The word count is".str_word_count("$date");
-          echo '<hr';
+       echo "The word count is: ". str_word_count($date);
+          echo '<hr>';
 
-          echo srtlen("$date");
+          
+          echo "String length is : " . strlen($date) . '<hr>';
 
-
-
+          echo "The ASCII value is : " . ord($date).'<hr>';
 
 
 
