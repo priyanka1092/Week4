@@ -36,6 +36,9 @@ echo "Oops";
 
           echo "The ASCII value is : " . ord($date).'<hr>';
 
+          echo "The last two characters of string are: ". substr($date, 8). '<hr>';
+
+
 
 
        
