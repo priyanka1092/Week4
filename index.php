@@ -38,6 +38,11 @@ echo "Oops";
 
           echo "The last two characters of string are: ". substr($date, 8). '<hr>';
 
+           
+           print_r(explode("/",$date));
+           echo '<hr>';
+
+ 
 
 
 
