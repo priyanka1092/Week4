@@ -1,52 +1,196 @@
 <?php
-$date =  date('Y/m/d', time());
-echo "The value of \$date: ".$date."<br>";
 
-$tar = "2017/05/24";
-echo "The value of \$tar: ".$tar."<br>";
+$obj = new main();
 
-$year = array("2012", "396", "300","2000", "1100", "1089");
-echo "The value of \$year: ";
-print_r($year);
-
-//$replacedate = str_replace("-", "/", $date);
-//echo "The value of \$date:" .$replacedate. "<br>";
-
-echo '<hr>';
-
-if($date == $tar)
+class main
 {
-echo "Oops";
+
+	// private $html; 
+
+	public function __construct()
+	{
+
+		$date =  date('Y-m-d', time());
+		echo "The value of \$date: ".$date."<br>";
+
+		$tar = "2017/05/24";		
+		echo "The value of \$tar: ".$tar."<br>";
+
+		$year = array("2012", "396", "300","2000", "1100", "1089");
+		echo "The value of \$year: ";
+		print_r($year);
+
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("Replace String Example");
+		$date = stringManipulation::stringReplace('-','/',$date);
+		echo $date;
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("Compare String Example");
+		echo stringManipulation::stringCompare($date,$tar);
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("Word Count Example");
+		echo stringManipulation::stringWordcount($date);
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("Find Position Example:");
+		echo stringManipulation::printPositions($date, "/");
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("String Length Example");
+		echo stringManipulation::stringLength($date);
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("ASCII Value Example");
+		echo stringManipulation::stringASCII('2');
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("Last two characters of the string are: ");
+		echo stringManipulation::stringCharacter($date,8);
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("String into Array Example:");
+		echo stringManipulation::stringExplode("/",$date);
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("Check Leap Year using foreach:");
+		echo arrayLeapYear::arrayForeach($year);	
+		echo htmlTags::breakLine();
+
+		echo htmlTags::headingThree("Check Leap Year using For Loop:");
+		echo arrayLeapYear::arrayIf($year);
+		echo htmlTags::breakLine();
+	}
+ 	
+ 	//  public function __destruct() 
+ 	// {
+ 	// 	print($this->html);
+ 	// }
 }
-  else if($date > $tar)
+
+
+class stringManipulation
+{
+
+	 static public function stringReplace($src,$target,$str)
+	 {
+	 	$str = str_replace($src,$target,$str);
+	 	return $str;
+	 }
+
+	 static public function stringCompare($string1,$string2)
+	 {
+	 	if($string1==$string2)
+	 	{
+	 		echo "Oops";
+	 	}
+	 		else if($string1>$string2)
+	 		{
+	 			return "Future";
+	 		}
+	 			else if($string1<$string2)
+	 			{
+	 				return "Past";
+	 			}
+	 }
+
+	 static public function printPositions($date, $val)
+	 {
+	 	return strpos($date, $val);
+	 	// echo $pos1;
+	 }
+
+	 static public function stringWordcount($string1)
+	 {
+	 	return str_word_count($string1);
+	 }
+
+	 static public function stringLength($string1)
+	 {
+	 	return strlen($string1);
+	 }
+
+	 static public function stringASCII($string1)
+	 {
+	 	return ord($string1);
+	 }
+
+	 static public function stringCharacter($string1,$value)
+	 {
+	 	return substr($string1,$value);
+	 }
+
+	 static public function stringExplode($value,$string1)
+	 {
+	 	$arr = explode($value,$string1);
+
+	 	foreach($arr as $a)
+	 		echo $a."\r";
+	 }
+
+}
+
+class arrayLeapYear 
+{
+	static public function arrayForeach($years)
+	{
+		foreach($years as $year)
+        { 
+         	arrayLeapYear::checkLeapYear($year);
+    	}
+    }
+
+
+	static public function arrayIf($years)
+		{
+			for($i=0; $i<count($years); $i++)
+			{
+				arrayLeapYear::checkLeapYear($years[$i]);
+			}
+		}
+
+
+
+	static public function checkLeapYear($year)
+	{
+		$val = ( ($year % 4 == 0) and ($year % 100 != 0) or ($year % 400 == 0) );
+
+		$str = '';
+
+		switch ($val) 
+		{
+			case 1:
+				echo 'True'."\r";
+				break;
+			
+			default:
+				echo 'False'."\r";
+				break;
+		}
+	}
+
+}
+
+
+class htmlTags
+{
+  static public function horizontalRule() 
   {
-    echo "Future";
-  }  
-     else if($date < $tar)
-       {
-       	echo "Past";
-       }
-
-       echo '<hr>';
-       echo "The word count is: ". str_word_count($date);
-          echo '<hr>';
-
-          
-          echo "String length is : " . strlen($date) . '<hr>';
-
-          echo "The ASCII value is : " . ord($date).'<hr>';
-
-          echo "The last two characters of string are: ". substr($date, 8). '<hr>';
-
-           
-           print_r(explode("/",$date));
-           echo '<hr>';
-
- 
-
-
-
-       
+      return '<hr>';
+    }
+    static public function headingOne($text) 
+    {
+      return '<h1>' . $text . '</h1>';
+  }
+    static public function headingThree($text)
+    {
+      return '<h3>' .$text . '</h1>';
+    }
+    static public function breakLine()
+    {
+    	return '<br>';
+    }
+}
 ?>
-
-
